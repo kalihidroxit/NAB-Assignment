@@ -34,5 +34,4 @@ public class SmartChoiceApplication implements CommandLineRunner {
         appUser.setPassword(bCryptPasswordEncoder.encode("123456"));
         appUserRepo.save(appUser);
     }
-
 }
