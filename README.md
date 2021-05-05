@@ -143,6 +143,7 @@ Because each result may have different format, I used Factory Method to map data
 
 * Interface
 
+    
 
     public interface SearchResult {
         List<ProductDto> getProduct(Object o);
@@ -150,6 +151,7 @@ Because each result may have different format, I used Factory Method to map data
 
 * Implement for Lozado
   
+    
 
     public class Lozado implements SearchResult {
 
@@ -165,6 +167,7 @@ Because each result may have different format, I used Factory Method to map data
 
 * Search Factory
 
+    
 
     public class SearchFactory {
         public static final SearchResult getSearch(ThirdPartyType thirdPartyType) {
@@ -178,6 +181,7 @@ Because each result may have different format, I used Factory Method to map data
             }
         }
     }
+
 
 Each request sent to third party will be charged for a fee, so I created `Product Lookup` table to save all product from third party.
 Actually, we can use Redis or call cron job (AWS EventBridge, ...) to update by schedule. But in the demo, I not using it. 
