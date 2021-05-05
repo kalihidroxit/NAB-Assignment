@@ -145,42 +145,42 @@ Because each result may have different format, I used Factory Method to map data
 
     
 
-    public interface SearchResult {
-        List<ProductDto> getProduct(Object o);
-    }
+        public interface SearchResult {
+            List<ProductDto> getProduct(Object o);
+        }
 
 * Implement for Lozado
   
     
 
-    public class Lozado implements SearchResult {
-
-        public static final Logger logger = LoggerFactory.getLogger(Lozado.class);
+        public class Lozado implements SearchResult {
     
-        @Override
-        public List<ProductDto> getProduct(Object o) {
-            ObjectMapper mapper = new ObjectMapper();
-            List<ProductDto> productDtoList = mapper.convertValue(o, new TypeReference<List<ProductDto>>() {});
-            return productDtoList;
+            public static final Logger logger = LoggerFactory.getLogger(Lozado.class);
+        
+            @Override
+            public List<ProductDto> getProduct(Object o) {
+                ObjectMapper mapper = new ObjectMapper();
+                List<ProductDto> productDtoList = mapper.convertValue(o, new TypeReference<List<ProductDto>>() {});
+                return productDtoList;
+            }
         }
-    }
 
 * Search Factory
 
     
 
-    public class SearchFactory {
-        public static final SearchResult getSearch(ThirdPartyType thirdPartyType) {
-        switch (thirdPartyType) {
-        
-                case Lozado:
-                    return new Lozado();
-        
-                default:
-                    throw new IllegalArgumentException("This third party is unsupported");
+        public class SearchFactory {
+            public static final SearchResult getSearch(ThirdPartyType thirdPartyType) {
+            switch (thirdPartyType) {
+            
+                    case Lozado:
+                        return new Lozado();
+            
+                    default:
+                        throw new IllegalArgumentException("This third party is unsupported");
+                }
             }
         }
-    }
 
 
 Each request sent to third party will be charged for a fee, so I created `Product Lookup` table to save all product from third party.
